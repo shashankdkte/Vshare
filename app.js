@@ -8,9 +8,15 @@ import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
 import { localMiddleware } from "./middlewares";
+import { join } from "path";
 const app = express();
 app.set("view engine", "pug");
-app.use(helmet());
+app.use(express.static(join(__dirname, "static")));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

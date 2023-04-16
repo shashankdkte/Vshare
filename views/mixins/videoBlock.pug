@@ -1,0 +1,6 @@
+mixin videoBlock(video={})
+    .videoBlock   
+          video.videoBlock__thumbnail(src=video.videoFile, type="video/mp4",controls=true)
+          h4.videoBlock_title=video.title
+          h6.videoBlock__views=video.views
+    

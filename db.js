@@ -60,3 +60,16 @@ export const videoFiles = [
     },
   },
 ];
+
+const mongoose = require("mongoose");
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URL);
+
+const db = mongoose.connection;
+const handleOpen = () => console.log("Connection open");
+db.once("open", handleOpen);
+db.on("error", () => {
+  console.log("error");
+});

@@ -12,6 +12,7 @@ import { join } from "path";
 const app = express();
 app.set("view engine", "pug");
 app.use(express.static(join(__dirname, "static")));
+app.use("/uploads", express.static("uploads"));
 app.use(
   helmet({
     contentSecurityPolicy: false,

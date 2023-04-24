@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 // export const videoFiles = [
 //   {
 //     id: 12345,
@@ -62,7 +63,6 @@
 // ];
 
 const mongoose = require("mongoose");
-import dotenv from "dotenv";
 
 dotenv.config();
 

@@ -4,21 +4,29 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
-    const videoFiles = await Video.find({});
+    const videoFiles = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "HOME", videos: videoFiles });
   } catch (error) {
     console.log(error);
     res.render("home", { pageTitle: "HOME", videos: [] });
   }
 };
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
   } = req;
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
   res.render("search", {
     pageTitle: "SEARCH",
-    searchingBy: searchingBy,
-    videos: videoFiles,
+    searchingBy,
+    videos,
   });
 };
 
@@ -40,7 +48,7 @@ export const postUpload = async (req, res) => {
   console.log(newVideo);
   res.redirect(routes.videoDetail(newVideo.id));
   // res.render("upload", { pageTitle: "Upload" });
-  //res.redirect(routes.videoDetail(34567));
+  // res.redirect(routes.videoDetail(34567));
 };
 
 export const videoDetail = async (req, res) => {

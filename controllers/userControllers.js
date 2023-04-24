@@ -1,13 +1,13 @@
 import routes from "../routes";
 
-//JOIN
+// JOIN
 export const getJoin = (req, res) => res.render("join", { pageTitle: "JOIN" });
 export const postJoin = (req, res) => {
   const {
-    body: { name, email, password, password2 },
+    body: { password, password2 },
   } = req;
   console.log(req.body);
-  if (password != password2) {
+  if (password !== password2) {
     res.status(400);
     res.render("join", { pageTitle: "JOIN" });
   } else {
@@ -15,14 +15,14 @@ export const postJoin = (req, res) => {
   }
 };
 
-//LOGIN
+// LOGIN
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "LOGIN" });
 export const postLogin = (req, res) => res.redirect(routes.home);
 export const logout = (req, res) =>
   res.render("logout", { pageTitle: "LGOUT" });
 
-//USERS
+// USERS
 export const users = (req, res) => res.render("users", { pageTitle: "USERS" });
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "USER DETAIL" });

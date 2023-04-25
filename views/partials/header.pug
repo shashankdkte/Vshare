@@ -1,20 +1,23 @@
-header.header 
-    .header__column   
-        a(href=routes.home)
-            i.fa-brands.fa-youtube
-    .header__column 
-        form(action=routes.search,method="get")
-            input(type="text",placeholder="Search By Term..",name="term")
-        ul  
-            if !user.isAuthenticated
-                li 
-                    a(href=routes.join) JOIN 
-                li    
-                    a(href=routes.login) LOGIN  
-            else    
-                li 
-                    a(href=`/videos${routes.upload}`) UPLOAD        
-                li 
-                    a(href=routes.userDetail(user.id))  PROFILE 
-                li 
-                    a(href=routes.logout) LOGOUT           
+header.header
+    .header__wrapper
+        .header__column   
+            a(href=routes.home)
+                i.fa-brands.fa-youtube
+        .header__column 
+            form(action=routes.search,method="get")
+                input(type="text",placeholder="Search By Term..",name="term")
+        .header__column          
+            ul  
+                if user === null
+                    li 
+                        a(href=routes.join) JOIN 
+                    li    
+                        a(href=routes.login) LOGIN  
+                else    
+                    li 
+                        a(href=`/videos${routes.upload}`) UPLOAD        
+                    li 
+                        a(href=routes.userDetail(user.id))  PROFILE 
+                    li 
+                        a(href=routes.logout) LOGOUT    
+                    li  #{console.log(user)}           

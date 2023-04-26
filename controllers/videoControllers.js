@@ -1,6 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 // import { videoFiles } from "../db";
 import routes from "../routes";
 import Video from "../models/Video";
+import User from "../models/User";
 
 export const home = async (req, res) => {
   try {
@@ -44,8 +46,12 @@ export const postUpload = async (req, res) => {
     fileUrl: path,
     title,
     description,
+    creator: req.user._id,
   });
-  console.log(newVideo);
+  const user = await User.findById(req.user._id);
+  await user.videos.push(newVideo.id);
+  await user.save();
+
   res.redirect(routes.videoDetail(newVideo.id));
   // res.render("upload", { pageTitle: "Upload" });
   // res.redirect(routes.videoDetail(34567));
@@ -56,8 +62,12 @@ export const videoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const video = await Video.findById(id);
-    res.render("videoDetail", { pageTitle: "VIDEO DETAIL", video });
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      res.redirect(routes.home);
+    }
+    const video = await Video.findById(id).populate("creator");
+    res.render("videoDetail", { pageTitle: "VIDEO DETAIL", video, user });
   } catch (error) {}
 };
 
@@ -67,7 +77,12 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: "EDIT VIDEO", video });
+
+    if (video.creator !== req.user._id) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `EDIT  ${video.title}`, video });
+    }
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -89,7 +104,12 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
-    await Video.findOneAndRemove({ _id: id });
+    const video = await Video.findById(id);
+    if (video.creator !== req.user.id) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({ _id: id });
+    }
   } catch (error) {}
   res.redirect(routes.home);
 };

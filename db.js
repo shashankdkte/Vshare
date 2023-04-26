@@ -66,7 +66,9 @@ const mongoose = require("mongoose");
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+});
 
 const db = mongoose.connection;
 const handleOpen = () => console.log("Connection open");

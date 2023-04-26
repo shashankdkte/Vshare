@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 import express from "express";
 import morgan from "morgan";
@@ -14,6 +16,7 @@ import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
 import { localMiddleware } from "./middlewares";
+import "./passport";
 
 const app = express();
 

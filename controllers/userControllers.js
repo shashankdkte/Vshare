@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
@@ -121,7 +122,7 @@ export const postEditProfile = async (req, res) => {
         $set: {
           name,
           email,
-          avatarUrl: file != null ? file.path : req.user.avatarUrl,
+          avatarUrl: file != null ? file.location : req.user.avatarUrl,
         },
       },
       { new: true }

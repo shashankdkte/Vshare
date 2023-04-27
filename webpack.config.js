@@ -2,7 +2,7 @@ const path = require("path");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const MODE = "development";
+const MODE = "production";
 const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
 

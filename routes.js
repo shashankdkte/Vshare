@@ -26,6 +26,12 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const FACEBOOK = "/auth/facebook";
 const FACEBOOK_CALLBACK = "/auth/facebook/callback";
 const ME = "/me";
+
+// API
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -66,6 +72,9 @@ const routes = {
   me: ME,
   facebook: FACEBOOK,
   facebookCallback: FACEBOOK_CALLBACK,
+  api: API,
+  registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
 };
 
 export default routes;

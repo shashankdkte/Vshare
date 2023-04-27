@@ -14,6 +14,7 @@ import { join } from "path";
 import userRouter from "./routers/userRouter";
 import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
+import apiRouter from "./routers/apiRouters";
 import routes from "./routes";
 import { localMiddleware } from "./middlewares";
 import "./passport";
@@ -52,6 +53,7 @@ app.use(localMiddleware);
 app.use(routes.users, userRouter);
 app.use(routes.home, globalRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 // --delay 2
 export default app;

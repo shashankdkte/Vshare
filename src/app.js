@@ -10,7 +10,7 @@ import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { join } from "path";
+import path from "path";
 import userRouter from "./routers/userRouter";
 import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
@@ -27,8 +27,10 @@ app.use(
   })
 );
 app.set("view engine", "pug");
-app.use(express.static(join(__dirname, "static")));
-app.use("/uploads", express.static("uploads"));
+app.set("views", path.join(__dirname, "views"));
+// app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
+// app.use("/uploads", express.static("uploads"));
 // app.use("/static", express.static("static"));
 
 app.use(cookieParser());
